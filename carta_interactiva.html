@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Carta para ti 💌</title>
+<style>
+  body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto; background:linear-gradient(135deg,#fff0f6,#fff7e6); color:#3b0; text-align:center}
+  .card{max-width:720px;margin:30px auto;padding:22px;border-radius:18px;box-shadow:0 10px 30px rgba(0,0,0,0.12);background:rgba(255,255,255,0.9)}
+  h1{font-size:2rem;margin:6px}
+  p{font-size:1.05rem}
+  .bigemoji{font-size:64px;margin:8px}
+  .btn{display:inline-block;margin:10px;padding:12px 18px;border-radius:12px;background:#ff5a9e;color:#fff;text-decoration:none;font-weight:600}
+  img.photo{max-width:90%;border-radius:12px;margin-top:12px}
+  /* modal */
+  .modal{position:fixed;left:0;top:0;width:100%;height:100%;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,0.45);visibility:hidden;opacity:0;transition:0.25s}
+  .modal.show{visibility:visible;opacity:1}
+  .modal .box{background:white;padding:20px;border-radius:14px;max-width:420px;text-align:center}
+  .confetti{pointer-events:none;position:fixed;left:0;top:0;width:100%;height:100%;overflow:hidden}
+  .dot{position:absolute;animation:fall 2.2s linear forwards}
+  @keyframes fall{to{transform:translateY(120vh) rotate(720deg);opacity:0}}
+</style>
+</head>
+<body>
+  <div class="card">
+    <div class="bigemoji">🌹💫</div>
+    <h1>Hola mi amor ❤️</h1>
+    <p>He preparado una sorpresa interactiva para ti. Toca los botones y verás mensajes, imágenes y un confetti final.</p>
+    <a class="btn" href="#" id="leer">💌 Leer carta</a>
+    <a class="btn" href="#" id="foto">📸 Ver foto</a>
+    <a class="btn" href="#" id="beso">😘 Recibir beso</a>
+    <div id="imgarea"></div>
+  </div>
+
+  <!-- Modal -->
+  <div class="modal" id="modal"><div class="box" id="modalbox"><h3 id="mtitle"></h3><p id="mtext"></p><br><a class="btn" id="cerrar" href="#">OK</a></div></div>
+
+  <div class="confetti" id="confetti"></div>
+
+<script>
+const modal=document.getElementById('modal');
+const mtitle=document.getElementById('mtitle');
+const mtext=document.getElementById('mtext');
+const cerrar=document.getElementById('cerrar');
+
+function showModal(title,text){
+  mtitle.textContent = title;
+  mtext.textContent = text;
+  modal.classList.add('show');
+}
+cerrar.onclick = function(e){ e.preventDefault(); modal.classList.remove('show'); }
+
+document.getElementById('leer').onclick = function(e){
+  e.preventDefault();
+  showModal("Carta para ti 💝","Desde que llegaste a mi vida, cada día se siente más luminoso. Gracias por existir.");
+  setTimeout(()=>showModal("Segunda línea 💫","Contigo todo es más bonito: risas, planes y sueños compartidos."),1800);
+  setTimeout(()=>showModal("Te amo ❤️","Siempre a tu lado, ahora y siempre."),3800);
+};
+
+document.getElementById('foto').onclick = function(e){
+  e.preventDefault();
+  const imgarea = document.getElementById('imgarea');
+  imgarea.innerHTML = '<img class="photo" src="IMG_SRC" alt="Foto linda">';
+  // Si no tienes IMG_SRC, te muestra un emoji grande
+  if(imgarea.querySelector('img').src.endsWith('IMG_SRC')){
+     imgarea.innerHTML = '<div class="bigemoji">🥰📷</div><p>Puedes reemplazar IMG_SRC en el HTML por la ruta de tu foto.</p>';
+  }
+};
+
+document.getElementById('beso').onclick = function(e){
+  e.preventDefault();
+  // animacion confetti
+  confettiBurst();
+  showModal("Beso enviado 😘","Te envío mil besos y abrazos.");
+};
+
+function confettiBurst(){
+  const container = document.getElementById('confetti');
+  container.innerHTML = '';
+  const colors = ['#ff5a9e','#ffd166','#4ecdc4','#7b2cbf','#ff6b6b','#ffd1dc'];
+  for(let i=0;i<40;i++){
+    const d = document.createElement('div');
+    d.className='dot';
+    d.style.left = Math.random()*100 + 'vw';
+    d.style.top = '-10vh';
+    d.style.width = (8+Math.random()*18)+'px';
+    d.style.height = d.style.width;
+    d.style.background = colors[Math.floor(Math.random()*colors.length)];
+    d.style.transform = 'rotate(' + (Math.random()*360) + 'deg)';
+    d.style.opacity = 0.95;
+    d.style.animationDelay = (Math.random()*0.3) + 's';
+    container.appendChild(d);
+  }
+  setTimeout(()=>container.innerHTML='',2500);
+}
+</script>
+</body>
+</html>
