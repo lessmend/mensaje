@@ -60,7 +60,7 @@ document.getElementById('leer').onclick = function(e){
 document.getElementById('foto').onclick = function(e){
   e.preventDefault();
   const imgarea = document.getElementById('imgarea');
-  imgarea.innerHTML = '<img class="photo" src="IMG_SRC" alt="Foto linda">';
+  imgarea.innerHTML = '<img class="photo" src="foto1" alt="Una foto linda de nosotros ❤️ ">';
   // Si no tienes IMG_SRC, te muestra un emoji grande
   if(imgarea.querySelector('img').src.endsWith('IMG_SRC')){
      imgarea.innerHTML = '<div class="bigemoji">🥰📷</div><p>Puedes reemplazar IMG_SRC en el HTML por la ruta de tu foto.</p>';
@@ -96,4 +96,5 @@ function confettiBurst(){
 </script>
 </body>
 </html>
+
 
